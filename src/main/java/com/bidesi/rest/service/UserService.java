@@ -2,11 +2,13 @@ package com.bidesi.rest.service;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.stereotype.Component;
 
 import com.bidesi.rest.bean.User;
+import com.bidesi.rest.exception.UserNotFoundException;
 
 @Component
 public class UserService {
@@ -45,6 +47,18 @@ public class UserService {
 			return counter;
 		}
 		return 0;
+	}
+
+	public User deleteUser(int id) {
+		Iterator<User> itr = users.iterator();
+		while(itr.hasNext()) {
+			User user = itr.next();
+			if(user.getId() == id) {
+				itr.remove();
+				return user;
+			}
+		}
+		return null;
 	}
 	
 }
